@@ -107,14 +107,6 @@ meson(
         ],
     visibility = ["//visibility:public"],
 )
-
-filegroup(
-    name = "dpdk_libs",
-    srcs = [":libdtc" ],
-    output_group = "dtc",
-    visibility = ["//visibility:public"],
-)
-
 """
 
 archive_override(
