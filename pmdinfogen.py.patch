@@ -1,0 +1,12 @@
+--- buildtools/pmdinfogen.py	2025-12-01 00:22:49.000000000 +0800
++++ buildtools/pmdinfogen.py	2026-02-15 13:38:07.006080759 +0800
+@@ -17,6 +17,9 @@
+ except ImportError:
+     pass
+ 
++import os
++sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
++
+ import coff
+ 
+ 

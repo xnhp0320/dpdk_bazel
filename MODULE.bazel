@@ -1,0 +1,130 @@
+# MODULE.bazel
+
+# Choose the most recent version available at
+# https://registry.bazel.build/modules/abseil-cpp.
+bazel_dep(name = "rules_cc", version = "0.2.14")
+bazel_dep(name = "abseil-cpp", version = "20260107.1")
+bazel_dep(name = "dpdk", version ="25.11.0")
+
+dpdk_module = """
+module( name = "dpdk" )
+bazel_dep(name = "rules_foreign_cc", version = "0.15.1")
+"""
+
+dpdk_build = """
+load("@rules_foreign_cc//foreign_cc:defs.bzl", "meson")
+filegroup(
+    name = "dpdk_source",
+    srcs = glob(["**"]),
+) 
+
+meson(
+    name = "meson_dpdk_libs", 
+    lib_source = "//:dpdk_source",
+    alwayslink = True,
+    options = {
+        "disable_drivers" : "net/ark,net/atlantic,net/avp,net/axgbe,net/bnxt,net/bond,net/cnxk,net/cxgbe,net/ena,net/enetc,net/enetfec,net/enic,net/failsafe,net/gve,net/hinic,net/hinic3,net/hns3,net/e1000,net/fm10k,net/i40e,net/iavf,net/ice,net/idpf,net/ixgbe,net/cpfl,net/ionic,net/nbl,net/netvsc,net/nfp,net/ngbe,net/ntnic,net/octeontx,net/octeon_ep,net/pfe,net/qede,net/r8169,net/rnp,net/sfc,net/thunderx,net/txgbe,net/vdev_netvsc,net/vhost,net/vmxnet3,net/xsc,net/zxdh,net/dpaa,net/dpaa2,power/*,baseband/*,event/*,vdpa/*,ml/*,regex/*,compress/*,crypto/*,raw/*,dma/*,common/*",
+        "examples" : "",
+        "enable_apps" : "test_pmd",
+        "tests" : "false",
+    },
+    out_static_libs = [
+        "x86_64-linux-gnu/librte_bus_auxiliary.a",
+        "x86_64-linux-gnu/librte_bus_ifpga.a",
+        "x86_64-linux-gnu/librte_bus_pci.a",
+        "x86_64-linux-gnu/librte_bus_platform.a",
+        "x86_64-linux-gnu/librte_bus_uacce.a",
+        "x86_64-linux-gnu/librte_bus_vdev.a",
+        "x86_64-linux-gnu/librte_bus_vmbus.a",
+        "x86_64-linux-gnu/librte_mempool_bucket.a",
+        "x86_64-linux-gnu/librte_mempool_ring.a",
+        "x86_64-linux-gnu/librte_mempool_stack.a",
+        "x86_64-linux-gnu/librte_net_af_packet.a",
+        "x86_64-linux-gnu/librte_net_memif.a",
+        "x86_64-linux-gnu/librte_net_null.a",
+        "x86_64-linux-gnu/librte_net_ring.a",
+        "x86_64-linux-gnu/librte_net_softnic.a",
+        "x86_64-linux-gnu/librte_net_tap.a",
+        "x86_64-linux-gnu/librte_net_virtio.a",
+        "x86_64-linux-gnu/librte_node.a",
+        "x86_64-linux-gnu/librte_graph.a",
+        "x86_64-linux-gnu/librte_pipeline.a",
+        "x86_64-linux-gnu/librte_table.a",
+        "x86_64-linux-gnu/librte_pdump.a",
+        "x86_64-linux-gnu/librte_port.a",
+        "x86_64-linux-gnu/librte_fib.a",
+        "x86_64-linux-gnu/librte_pdcp.a",
+        "x86_64-linux-gnu/librte_ipsec.a",
+        "x86_64-linux-gnu/librte_vhost.a",
+        "x86_64-linux-gnu/librte_stack.a",
+        "x86_64-linux-gnu/librte_security.a",
+        "x86_64-linux-gnu/librte_sched.a",
+        "x86_64-linux-gnu/librte_reorder.a",
+        "x86_64-linux-gnu/librte_rib.a",
+        "x86_64-linux-gnu/librte_mldev.a",
+        "x86_64-linux-gnu/librte_regexdev.a",
+        "x86_64-linux-gnu/librte_rawdev.a",
+        "x86_64-linux-gnu/librte_power.a",
+        "x86_64-linux-gnu/librte_pcapng.a",
+        "x86_64-linux-gnu/librte_member.a",
+        "x86_64-linux-gnu/librte_lpm.a",
+        "x86_64-linux-gnu/librte_latencystats.a",
+        "x86_64-linux-gnu/librte_jobstats.a",
+        "x86_64-linux-gnu/librte_ip_frag.a",
+        "x86_64-linux-gnu/librte_gso.a",
+        "x86_64-linux-gnu/librte_gro.a",
+        "x86_64-linux-gnu/librte_gpudev.a",
+        "x86_64-linux-gnu/librte_dispatcher.a",
+        "x86_64-linux-gnu/librte_eventdev.a",
+        "x86_64-linux-gnu/librte_efd.a",
+        "x86_64-linux-gnu/librte_dmadev.a",
+        "x86_64-linux-gnu/librte_distributor.a",
+        "x86_64-linux-gnu/librte_cryptodev.a",
+        "x86_64-linux-gnu/librte_compressdev.a",
+        "x86_64-linux-gnu/librte_cfgfile.a",
+        "x86_64-linux-gnu/librte_bpf.a",
+        "x86_64-linux-gnu/librte_bitratestats.a",
+        "x86_64-linux-gnu/librte_bbdev.a",
+        "x86_64-linux-gnu/librte_acl.a",
+        "x86_64-linux-gnu/librte_timer.a",
+        "x86_64-linux-gnu/librte_hash.a",
+        "x86_64-linux-gnu/librte_metrics.a",
+        "x86_64-linux-gnu/librte_cmdline.a",
+        "x86_64-linux-gnu/librte_pci.a",
+        "x86_64-linux-gnu/librte_ethdev.a",
+        "x86_64-linux-gnu/librte_meter.a",
+        "x86_64-linux-gnu/librte_net.a",
+        "x86_64-linux-gnu/librte_mbuf.a",
+        "x86_64-linux-gnu/librte_mempool.a",
+        "x86_64-linux-gnu/librte_rcu.a",
+        "x86_64-linux-gnu/librte_ring.a",
+        "x86_64-linux-gnu/librte_eal.a",
+        "x86_64-linux-gnu/librte_pmu.a",
+        "x86_64-linux-gnu/librte_telemetry.a",
+        "x86_64-linux-gnu/librte_argparse.a",
+        "x86_64-linux-gnu/librte_kvargs.a",
+        "x86_64-linux-gnu/librte_log.a",
+        ],
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "dpdk_libs",
+    srcs = [":libdtc" ],
+    output_group = "dtc",
+    visibility = ["//visibility:public"],
+)
+
+"""
+
+archive_override(
+    module_name = "dpdk",
+    urls = ["https://github.com/DPDK/dpdk/archive/refs/tags/v25.11.tar.gz"],
+    strip_prefix="dpdk-25.11",
+    integrity = "sha256-UrdnMfPL7kSqfNhgp9zlqFgrIz5PU/0EFPJPSweHglo=",
+    patch_cmds = [
+        "echo '" + dpdk_module + "' > MODULE.bazel",
+        "echo '" + dpdk_build + "' > BUILD",
+    ],
+    patches = [ "pmdinfogen.py.patch" ],
+)
