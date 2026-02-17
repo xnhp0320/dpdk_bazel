@@ -2,8 +2,9 @@
 
 # Choose the most recent version available at
 # https://registry.bazel.build/modules/abseil-cpp.
-bazel_dep(name = "rules_cc", version = "0.2.14")
+bazel_dep(name = "rules_cc", version = "0.2.16")
 bazel_dep(name = "abseil-cpp", version = "20260107.1")
+bazel_dep(name = "boost.asio", version = "1.90.0.bcr.1")
 bazel_dep(name = "dpdk", version ="25.11.0")
 
 dpdk_module = """

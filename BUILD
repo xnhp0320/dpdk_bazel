@@ -5,6 +5,7 @@ cc_binary(
     name = "hello_world",
     srcs = ["hello_world.cc"],
     deps = ["@abseil-cpp//absl/strings",
+            "@boost.asio",
             "@dpdk//:meson_dpdk_libs"],
     linkopts = ["-lnuma", "-latomic"],
 )
