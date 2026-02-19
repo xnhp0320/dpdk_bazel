@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package unix_socket;
+
+// Request message for JSON-RPC commands
+message Request {
+  string command = 1;
+  map<string, string> args = 2;
+}
+
+// Response message for JSON-RPC commands
+message Response {
+  bool success = 1;
+  string message = 2;
+  map<string, string> data = 3;
+}
