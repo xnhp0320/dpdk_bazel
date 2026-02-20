@@ -41,6 +41,8 @@ cc_binary(
     srcs = ["hello_world.cc"],
     deps = [
         "@abseil-cpp//absl/strings",
+        "@abseil-cpp//absl/flags:flag",
+        "@abseil-cpp//absl/flags:parse",
         "@boost.asio",
         "@dpdk//:meson_dpdk_libs",
     ],

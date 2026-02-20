@@ -18,7 +18,14 @@ dpdk_build = """
 load("@rules_foreign_cc//foreign_cc:defs.bzl", "meson")
 filegroup(
     name = "dpdk_source",
-    srcs = glob(["**"]),
+    srcs = glob([
+        "**/*.c",
+        "**/*.h",
+        "**/meson.build",
+        "**/meson_options.txt"
+    ], exclude = [
+        "buildtools/**/*.pyc"
+    ]),
 ) 
 
 meson(
